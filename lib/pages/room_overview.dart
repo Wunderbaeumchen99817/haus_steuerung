@@ -42,7 +42,7 @@ class RoomPageState extends State<RoomPage> {
                     fontFamily: "Open Sans",
                   ),
                 ),
-                onLongPress: () async {
+                onTap: () async {
                   await Navigator.push(context,
                       MaterialPageRoute(
                           builder:(context)=> CustomPage(

@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Smart Home by Kath',
       theme: ThemeData(
         primaryColor: Color.fromRGBO(153, 0, 51, 1),
         visualDensity: VisualDensity.adaptivePlatformDensity,
