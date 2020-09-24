@@ -21,6 +21,10 @@ class CustomPageState extends State<CustomPage> {
 
   void initState() async {
     super.initState();
+    raspiInit();
+  }
+
+  void raspiInit() async {
     var output = await raspiHandler.get(this.widget.title);
     if (output != null) {
       setState(() {
