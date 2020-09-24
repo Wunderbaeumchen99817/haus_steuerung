@@ -81,8 +81,8 @@ class CustomPageState extends State<CustomPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
                   Spacer(),
-                  customText("Temperatur ist: $tempIst"),
-                  customText("Temperatur soll:"),
+                  customText("Temperatur ist: $tempIst°C \n"),
+                  customText("Temperatur soll:\n"),
                   CustomSliderWidget(
                     min: 10,
                     max: 35,
@@ -94,7 +94,7 @@ class CustomPageState extends State<CustomPage> {
                       });
                     },
                   ),
-                  Spacer(flex: 2,)
+                  Spacer(flex: 2)
                 ],
               )
           )
