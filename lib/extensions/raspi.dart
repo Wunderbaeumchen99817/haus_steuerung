@@ -4,6 +4,7 @@ class Raspi {
     ///todo
     ///implement http post
     try {
+      print(title);
       print(tempS);
       return true;
     } catch (e) {
@@ -16,7 +17,7 @@ class Raspi {
     ///get current values from raspi
     try {
       ///return state, temperature soll, temperature ist
-      bool state = true;
+      bool state = false;
       int temperatureS = 25;
       int temperatureI = 26;
       return [temperatureS, temperatureI, state];

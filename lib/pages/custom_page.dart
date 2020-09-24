@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:numberpicker/numberpicker.dart';
 
 import 'package:haus_steuerung/main.dart';
 import 'package:haus_steuerung/custom_widgets/custom_text.dart';
 import 'package:haus_steuerung/custom_widgets/custom_bar.dart';
+import 'package:haus_steuerung/custom_widgets/custom_slider.dart';
 
 class CustomPage extends StatefulWidget {
   final title;
@@ -19,7 +19,7 @@ class CustomPageState extends State<CustomPage> {
   int tempIst = 0;
   bool state = true;
 
-  void initState() async {
+  void initState() {
     super.initState();
     raspiInit();
   }
@@ -30,6 +30,7 @@ class CustomPageState extends State<CustomPage> {
       setState(() {
         tempSoll = output[0];
         tempIst = output[1];
+        print(tempIst);
         state = output[2];
       });
     } ///todo error catch
@@ -57,6 +58,15 @@ class CustomPageState extends State<CustomPage> {
       },
     );
   }
+
+  _sendAndClose() async {
+    var answer = await raspiHandler.send(this.widget.title, tempSoll);
+    if (answer) {
+      Navigator.pop(context);
+    } else {
+      _failureDialog();
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,23 +82,19 @@ class CustomPageState extends State<CustomPage> {
                 children: <Widget>[
                   Spacer(),
                   customText("Temperatur ist: $tempIst"),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      customText("Temperatur soll:"),
-                      NumberPicker.integer(
-                        minValue: 0,
-                        maxValue: 40,
-                        initialValue: tempIst,
-                        onChanged: (newVal) {
-                          setState(() {
-                            tempSoll = newVal;
-                          });
-                        },
-                      )
-                    ]
+                  customText("Temperatur soll:"),
+                  CustomSliderWidget(
+                    min: 10,
+                    max: 35,
+                    divisions: 25,
+                    val: tempSoll,
+                    onChanged: (newVal) {
+                      setState(() {
+                        tempSoll = newVal.toInt();
+                      });
+                    },
                   ),
-                  Spacer()
+                  Spacer(flex: 2,)
                 ],
               )
           )
@@ -104,14 +110,7 @@ class CustomPageState extends State<CustomPage> {
               icon: Icon(Icons.check),
               tooltip: "Speichern",
               color: Colors.white,
-              onPressed: () => () async {
-                var answer = await raspiHandler.send(this.widget.title, tempSoll);
-                if (answer) {
-                  Navigator.pop(context);
-                } else {
-                  _failureDialog();
-                }
-              }
+              onPressed: _sendAndClose
             ),
           ),
         ],

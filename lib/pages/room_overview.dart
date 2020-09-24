@@ -33,8 +33,15 @@ class RoomPageState extends State<RoomPage> {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15.0),
               ),
+              elevation: 1.5,
               child: ListTile(
-                title: customText(rooms[index]),
+                title: Text(rooms[index],
+                  style: TextStyle(
+                    fontSize: 30,
+                    fontStyle: FontStyle.italic,
+                    fontFamily: "Open Sans",
+                  ),
+                ),
                 onLongPress: () async {
                   await Navigator.push(context,
                       MaterialPageRoute(
