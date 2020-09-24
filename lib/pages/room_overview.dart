@@ -34,13 +34,7 @@ class RoomPageState extends State<RoomPage> {
                 borderRadius: BorderRadius.circular(15.0),
               ),
               child: ListTile(
-                title: Text(rooms[index],
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontStyle: FontStyle.italic,
-                    fontFamily: "Open Sans",
-                  ),
-                ),
+                title: customText(rooms[index]),
                 onLongPress: () async {
                   await Navigator.push(context,
                       MaterialPageRoute(
